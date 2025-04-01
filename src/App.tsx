@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import TradingBoard, { Trader } from "./components/TradingBoard";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const tradersData: Trader[] = [
+    {
+      rank: 1,
+      user: "0x8923...4d21",
+      tradingScore: 1250,
+      buyVolume: 32450,
+      sellVolume: 12230,
+      currentBalance: 20220,
+    },
+    {
+      rank: 2,
+      user: "0x7128...9f32",
+      tradingScore: 980,
+      buyVolume: 28100,
+      sellVolume: 10200,
+      currentBalance: 17900,
+    },
+    {
+      rank: 3,
+      user: "0x7128...9f32",
+      tradingScore: 980,
+      buyVolume: 28100,
+      sellVolume: 10200,
+      currentBalance: 17900,
+    },
+    {
+      rank: 4,
+      user: "0x7128...9f32",
+      tradingScore: 980,
+      buyVolume: 28100,
+      sellVolume: 10200,
+      currentBalance: 17900,
+    },
+    // more traders...
+  ];
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="grainy-background flex min-h-screen items-center justify-center">
+      <TradingBoard traders={tradersData} />
+    </div>
+  );
 }
 
-export default App
+export default App;
