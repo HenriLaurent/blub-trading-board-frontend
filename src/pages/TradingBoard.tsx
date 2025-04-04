@@ -1,18 +1,7 @@
 import { useMemo } from "react";
 import { useTradingVolumes } from "../api/trading";
 import TradingBoard from "../components/TradingBoard";
-
-const formatTokenAmount = (rawAmount: string, decimals: number = 18) => {
-  const bigIntAmount = BigInt(rawAmount); // Conversion en BigInt
-  const divisor = BigInt(10 ** decimals); // 10^18 pour la plupart des tokens
-  const integerPart = bigIntAmount / divisor;
-  const decimalPart = bigIntAmount % divisor;
-
-  return `${integerPart}.${decimalPart
-    .toString()
-    .padStart(decimals, "0")
-    .replace(/0+$/, "")}`;
-};
+import { formatTokenAmount } from "../utils/formatters";
 
 export default function TradingBoardPage() {
   const { data: tradingVolumes, isLoading, error } = useTradingVolumes();

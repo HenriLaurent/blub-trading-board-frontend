@@ -11,11 +11,11 @@ export default function TwitterLoginButton({
     <button
       onClick={onLogin}
       disabled={isPending}
-      className={`cursor-pointer flex items-center justify-center gap-2 bg-[#FA73A0] text-white px-4 py-3 rounded-xl hover:bg-rose-500 font-bold transition-colors`}
+      className={`w-full md:w-auto cursor-pointer flex items-center justify-center gap-1 md:gap-2 bg-gradient-to-r from-[#FA73A0] to-[#d85086] text-white px-3 py-2 md:px-4 md:py-3 rounded-xl hover:bg-rose-500 font-bold transition-colors text-sm md:text-base`}
     >
       <svg
         viewBox="0 0 1200 1227"
-        className="w-4 h-4"
+        className="w-3 h-3 md:w-4 md:h-4"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -24,7 +24,7 @@ export default function TwitterLoginButton({
           fill="white"
         />
       </svg>
-      Connect with X
+      <span>{isPending ? "Connecting..." : "Connect with X"}</span>
     </button>
   );
 }
