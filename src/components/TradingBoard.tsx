@@ -136,8 +136,10 @@ export default function TradingBoard({
   };
 
   return (
-    <div className={`overflow-x-auto max-w-7xl mx-auto w-full ${className}`}>
-      <div className="bg-white p-4 rounded-lg shadow-lg">
+    <div
+      className={`overflow-x-auto max-w-7xl mx-auto w-full bg-white shadow-sm rounded-lg ${className}`}
+    >
+      <div className="p-4">
         <table className="min-w-full">
           <thead className="font-gluten">
             <tr className="border-b border-gray-300 text-gray-500">
