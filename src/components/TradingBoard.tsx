@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 // Types for trader data
 export interface Trader {
   rank: number;
+  avatar: string;
   user: string;
   tradingScore: number;
   buyVolume: number;
@@ -138,7 +139,7 @@ export default function TradingBoard({
     <div className={`overflow-x-auto max-w-7xl mx-auto w-full ${className}`}>
       <div className="bg-white p-4 rounded-lg shadow-lg">
         <table className="min-w-full">
-          <thead>
+          <thead className="font-gluten">
             <tr className="border-b border-gray-300 text-gray-500">
               <th
                 className="py-3 px-4 font-medium cursor-pointer text-left select-none"
@@ -232,7 +233,7 @@ export default function TradingBoard({
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="font-nunito">
             {sortedTraders.map((trader, index) => (
               <tr key={index} className="hover:bg-gray-50">
                 <td className="py-6 px-4">
@@ -257,17 +258,23 @@ export default function TradingBoard({
                     )}
                   </div>
                 </td>
-                <td className="py-3 px-4 text-center">{trader.user}</td>
+                <td className="py-3 px-4 text-center">
+                  <div className="flex items-center justify-center gap-4 font-regular">
+                    <img src={trader.avatar} className="w-8 h-8 rounded-full" />
+
+                    <p>{trader.user}</p>
+                  </div>
+                </td>
                 <td className="py-3 px-4 text-[#FA73A0] text-center font-bold">
                   {formatNumber(trader.tradingScore)}
                 </td>
-                <td className="py-3 px-4 text-green-600 text-center">
+                <td className="py-3 px-4 text-green-500 text-center font-bold">
                   {formatNumber(trader.buyVolume)}
                 </td>
-                <td className="py-3 px-4 text-red-600 text-center">
+                <td className="py-3 px-4 text-red-500 text-center font-bold">
                   {formatNumber(trader.sellVolume)}
                 </td>
-                <td className="py-3 px-4 font-medium text-right">
+                <td className="py-3 px-4 text-slate-700 text-right font-bold">
                   {formatNumber(trader.currentBalance)}
                 </td>
               </tr>
