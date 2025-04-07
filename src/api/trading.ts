@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { API_URL } from "../config";
 
 interface TradingVolumeItem {
   username: string | null;
@@ -63,7 +64,7 @@ export const useTradingVolumes = (options: TradingVolumesOptions = {}) => {
         }
 
         const response = await fetch(
-          `http://localhost:8000/api/trading-volumes/?${params.toString()}`
+          `${API_URL}/api/trading-volumes/?${params.toString()}`
         );
 
         console.log("Response status:", response.status, response.statusText);
@@ -96,7 +97,7 @@ export const useWalletTradingVolumes = (walletAddress: string | null) => {
 
       try {
         const response = await fetch(
-          `http://localhost:8000/api/trading-volumes/${walletAddress}`
+          `${API_URL}/api/trading-volumes/${walletAddress}`
         );
 
         console.log(

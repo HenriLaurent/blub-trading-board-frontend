@@ -1,9 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_URL } from "../config";
 
 export const useStartTwitterAuth = () => {
   return useMutation({
     mutationFn: async () => {
-      const response = await fetch("http://localhost:8000/auth/twitter/start", {
+      const response = await fetch(`${API_URL}/auth/twitter/start`, {
         method: "GET",
         credentials: "include",
       });
@@ -30,7 +31,7 @@ export const useCurrentUser = () => {
     queryFn: async () => {
       try {
         console.log("Envoi de la requête à /auth/user");
-        const response = await fetch("http://localhost:8000/auth/user", {
+        const response = await fetch(`${API_URL}/auth/user`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -60,7 +61,7 @@ export const useLogout = () => {
 
   return useMutation({
     mutationFn: async () => {
-      const response = await fetch("http://localhost:8000/auth/logout", {
+      const response = await fetch(`${API_URL}/auth/logout`, {
         method: "POST",
         credentials: "include",
         headers: {

@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_URL } from "../config";
 
 export const useLinkWallet = () => {
   const queryClient = useQueryClient();
@@ -15,7 +16,7 @@ export const useLinkWallet = () => {
       }
 
       try {
-        const response = await fetch("http://localhost:8000/api/wallet/link", {
+        const response = await fetch(`${API_URL}/api/wallet/link`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
