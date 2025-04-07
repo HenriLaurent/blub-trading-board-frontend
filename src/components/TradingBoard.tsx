@@ -16,6 +16,11 @@ export interface Trader {
 interface TradingBoardProps {
   traders: Trader[];
   className?: string;
+  pagination?: {
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (page: number) => void;
+  };
 }
 
 // Type for sort configuration
@@ -27,6 +32,7 @@ type SortConfig = {
 export default function TradingBoard({
   traders,
   className = "",
+  pagination,
 }: TradingBoardProps) {
   // State for sorting and hover
   const [sortConfig, setSortConfig] = useState<SortConfig>({
@@ -283,6 +289,93 @@ export default function TradingBoard({
             ))}
           </tbody>
         </table>
+
+        {/* Add pagination controls */}
+        {pagination && pagination.totalPages > 1 && (
+          <div className="mt-6 flex justify-center gap-2">
+            <button
+              onClick={() => pagination.onPageChange(1)}
+              disabled={pagination.currentPage === 1}
+              className={`px-3 py-1 rounded-md ${
+                pagination.currentPage === 1
+                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+              }`}
+            >
+              First
+            </button>
+            <button
+              onClick={() =>
+                pagination.onPageChange(pagination.currentPage - 1)
+              }
+              disabled={pagination.currentPage === 1}
+              className={`px-3 py-1 rounded-md ${
+                pagination.currentPage === 1
+                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+              }`}
+            >
+              Previous
+            </button>
+
+            <div className="flex gap-1">
+              {/* Show page numbers, with ellipsis for large ranges */}
+              {Array.from({ length: pagination.totalPages }, (_, i) => i + 1)
+                .filter(
+                  (page) =>
+                    page === 1 ||
+                    page === pagination.totalPages ||
+                    Math.abs(page - pagination.currentPage) < 2
+                )
+                .map((page, index, array) => {
+                  const previousPage = array[index - 1];
+                  const showEllipsisBefore =
+                    previousPage && page - previousPage > 1;
+
+                  return (
+                    <div key={page} className="flex items-center">
+                      {showEllipsisBefore && <span className="px-2">...</span>}
+                      <button
+                        onClick={() => pagination.onPageChange(page)}
+                        className={`w-8 h-8 flex items-center justify-center rounded-md ${
+                          page === pagination.currentPage
+                            ? "bg-[#FA73A0] text-white"
+                            : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    </div>
+                  );
+                })}
+            </div>
+
+            <button
+              onClick={() =>
+                pagination.onPageChange(pagination.currentPage + 1)
+              }
+              disabled={pagination.currentPage === pagination.totalPages}
+              className={`px-3 py-1 rounded-md ${
+                pagination.currentPage === pagination.totalPages
+                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+              }`}
+            >
+              Next
+            </button>
+            <button
+              onClick={() => pagination.onPageChange(pagination.totalPages)}
+              disabled={pagination.currentPage === pagination.totalPages}
+              className={`px-3 py-1 rounded-md ${
+                pagination.currentPage === pagination.totalPages
+                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+              }`}
+            >
+              Last
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

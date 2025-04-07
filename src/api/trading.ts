@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-interface TradingVolumeResponse {
+interface TradingVolumeItem {
   username: string | null;
   display_name: string | null;
   profile_image_url: string | null;
@@ -11,6 +11,16 @@ interface TradingVolumeResponse {
   transfer_count: number;
   presale_type: string[];
   wallet_addresses: string[];
+}
+
+interface TradingVolumeResponse {
+  items: TradingVolumeItem[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    pages: number;
+  };
 }
 
 // Interface pour les volumes de trading par adresse
@@ -30,13 +40,30 @@ interface AddressTradingVolumeResponse {
   profile_image_url?: string | null;
 }
 
-export const useTradingVolumes = () => {
-  return useQuery<TradingVolumeResponse[], Error>({
-    queryKey: ["tradingVolumes"],
+interface TradingVolumesOptions {
+  page?: number;
+  limit?: number;
+  search?: string;
+}
+
+export const useTradingVolumes = (options: TradingVolumesOptions = {}) => {
+  const { page = 1, limit = 10, search = "" } = options;
+
+  return useQuery<TradingVolumeResponse, Error>({
+    queryKey: ["tradingVolumes", page, limit, search],
     queryFn: async () => {
       try {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          limit: limit.toString(),
+        });
+
+        if (search) {
+          params.append("search", search);
+        }
+
         const response = await fetch(
-          "http://localhost:8000/api/trading-volumes/"
+          `http://localhost:8000/api/trading-volumes/?${params.toString()}`
         );
 
         console.log("Response status:", response.status, response.statusText);
