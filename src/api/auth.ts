@@ -31,34 +31,46 @@ export const useCurrentUser = () => {
     queryFn: async () => {
       try {
         console.log("Starting /auth/user request");
+        console.log("Current cookies:", document.cookie);
+        console.log("API URL:", API_URL);
+
         const response = await fetch(`${API_URL}/auth/user`, {
           method: "GET",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            ...(document.cookie && { Cookie: document.cookie }),
           },
         });
 
-        // Log request details
+        console.log("Request URL:", `${API_URL}/auth/user`);
         console.log("Request headers:", {
           cookie: document.cookie,
           credentials: "include",
+          contentType: "application/json",
         });
+        console.log("Response status:", response.status);
+        console.log(
+          "Response headers:",
+          Object.fromEntries(response.headers.entries())
+        );
 
         if (!response.ok) {
           console.error("HTTP error:", response.status);
-          console.error(
-            "Response headers:",
-            Object.fromEntries(response.headers.entries())
-          );
           return { authenticated: false };
         }
 
         const data = await response.json();
         console.log("Auth Response data:", data);
         return data;
-      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
         console.error("Error during request:", error);
+        console.error("Error details:", {
+          name: error?.name,
+          message: error?.message,
+          stack: error?.stack,
+        });
         return { authenticated: false };
       }
     },
