@@ -26,19 +26,6 @@ export const useStartTwitterAuth = () => {
   });
 };
 
-// Add a function to check cookies
-const logCookieState = () => {
-  console.log("Document cookies:", document.cookie);
-  console.log("Cookie parsing attempt:", {
-    raw: document.cookie,
-    parsed: document.cookie.split(";").reduce((acc, curr) => {
-      const [key, value] = curr.trim().split("=");
-      acc[key] = value;
-      return acc;
-    }, {} as Record<string, string>),
-  });
-};
-
 export const useCurrentUser = () => {
   return useQuery({
     queryKey: ["currentUser"],
