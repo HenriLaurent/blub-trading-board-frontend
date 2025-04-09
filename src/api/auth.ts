@@ -11,17 +11,17 @@ export const useStartTwitterAuth = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
+        throw new Error(`Erreur: ${response.status} ${response.statusText}`);
       }
 
       return response.json();
     },
     onSuccess: (data) => {
-      console.log("Starting Twitter auth redirect with data:", data);
+      console.log(data, "data");
       window.location.href = data.auth_url;
     },
     onError: (error) => {
-      console.error("X auth error:", error);
+      console.error("X auth error :", error);
     },
   });
 };
@@ -31,9 +31,7 @@ export const useCurrentUser = () => {
     queryKey: ["currentUser"],
     queryFn: async () => {
       try {
-        console.log("Starting /auth/user request");
-        console.log("Current document.cookie:", document.cookie);
-
+        console.log("Envoi de la requête à /auth/user");
         const response = await fetch(`${API_URL}/auth/user`, {
           method: "GET",
           credentials: "include",
@@ -43,23 +41,13 @@ export const useCurrentUser = () => {
           mode: "cors",
         });
 
-        // Log complete request and response details
-        console.log("Response details:", {
-          status: response.status,
-          statusText: response.statusText,
-          headers: Object.fromEntries(response.headers.entries()),
-          url: response.url,
-        });
-
         if (!response.ok) {
-          console.error("HTTP error:", response.status);
-          const errorText = await response.text();
-          console.error("Error response:", errorText);
+          console.error("HTTP  error:", response.status);
           return { authenticated: false };
         }
 
         const data = await response.json();
-        console.log("Auth Response data:", data);
+        console.log("Response:", data);
         return data;
       } catch (error) {
         console.error("Error during request:", error);
