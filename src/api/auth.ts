@@ -7,10 +7,11 @@ export const useStartTwitterAuth = () => {
       const response = await fetch(`${API_URL}/auth/twitter/start`, {
         method: "GET",
         credentials: "include",
+        mode: "cors",
       });
 
       if (!response.ok) {
-        throw new Error(`Erreur: ${response.status} ${response.statusText}`);
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
 
       return response.json();
@@ -20,7 +21,7 @@ export const useStartTwitterAuth = () => {
       window.location.href = data.auth_url;
     },
     onError: (error) => {
-      console.error("X auth error :", error);
+      console.error("X auth error:", error);
     },
   });
 };
@@ -44,8 +45,7 @@ export const useCurrentUser = () => {
     queryFn: async () => {
       try {
         console.log("Starting /auth/user request");
-        logCookieState();
-        console.log("API URL:", API_URL);
+        console.log("Current document.cookie:", document.cookie);
 
         const response = await fetch(`${API_URL}/auth/user`, {
           method: "GET",
@@ -53,41 +53,29 @@ export const useCurrentUser = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          mode: "cors",
         });
 
-        console.log("Request URL:", `${API_URL}/auth/user`);
-        console.log("Full request details:", {
-          url: `${API_URL}/auth/user`,
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        const responseHeaders = Object.fromEntries(response.headers.entries());
+        // Log complete request and response details
         console.log("Response details:", {
           status: response.status,
           statusText: response.statusText,
-          headers: responseHeaders,
+          headers: Object.fromEntries(response.headers.entries()),
           url: response.url,
         });
 
         if (!response.ok) {
           console.error("HTTP error:", response.status);
+          const errorText = await response.text();
+          console.error("Error response:", errorText);
           return { authenticated: false };
         }
 
         const data = await response.json();
         console.log("Auth Response data:", data);
         return data;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
+      } catch (error) {
         console.error("Error during request:", error);
-        console.error("Error details:", {
-          name: error?.name,
-          message: error?.message,
-          stack: error?.stack,
-        });
         return { authenticated: false };
       }
     },
