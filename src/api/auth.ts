@@ -30,7 +30,7 @@ export const useCurrentUser = () => {
     queryKey: ["currentUser"],
     queryFn: async () => {
       try {
-        console.log("Envoi de la requête à /auth/user");
+        console.log("Starting /auth/user request");
         const response = await fetch(`${API_URL}/auth/user`, {
           method: "GET",
           credentials: "include",
@@ -39,13 +39,23 @@ export const useCurrentUser = () => {
           },
         });
 
+        // Log request details
+        console.log("Request headers:", {
+          cookie: document.cookie,
+          credentials: "include",
+        });
+
         if (!response.ok) {
-          console.error("HTTP  error:", response.status);
+          console.error("HTTP error:", response.status);
+          console.error(
+            "Response headers:",
+            Object.fromEntries(response.headers.entries())
+          );
           return { authenticated: false };
         }
 
         const data = await response.json();
-        console.log("Response:", data);
+        console.log("Auth Response data:", data);
         return data;
       } catch (error) {
         console.error("Error during request:", error);
