@@ -16,12 +16,25 @@ export const useStartTwitterAuth = () => {
       return response.json();
     },
     onSuccess: (data) => {
-      console.log(data, "data");
+      console.log("Starting Twitter auth redirect with data:", data);
       window.location.href = data.auth_url;
     },
     onError: (error) => {
       console.error("X auth error :", error);
     },
+  });
+};
+
+// Add a function to check cookies
+const logCookieState = () => {
+  console.log("Document cookies:", document.cookie);
+  console.log("Cookie parsing attempt:", {
+    raw: document.cookie,
+    parsed: document.cookie.split(";").reduce((acc, curr) => {
+      const [key, value] = curr.trim().split("=");
+      acc[key] = value;
+      return acc;
+    }, {} as Record<string, string>),
   });
 };
 
@@ -31,7 +44,7 @@ export const useCurrentUser = () => {
     queryFn: async () => {
       try {
         console.log("Starting /auth/user request");
-        console.log("Current cookies:", document.cookie);
+        logCookieState();
         console.log("API URL:", API_URL);
 
         const response = await fetch(`${API_URL}/auth/user`, {
@@ -39,21 +52,25 @@ export const useCurrentUser = () => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            ...(document.cookie && { Cookie: document.cookie }),
           },
         });
 
         console.log("Request URL:", `${API_URL}/auth/user`);
-        console.log("Request headers:", {
-          cookie: document.cookie,
+        console.log("Full request details:", {
+          url: `${API_URL}/auth/user`,
           credentials: "include",
-          contentType: "application/json",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
-        console.log("Response status:", response.status);
-        console.log(
-          "Response headers:",
-          Object.fromEntries(response.headers.entries())
-        );
+
+        const responseHeaders = Object.fromEntries(response.headers.entries());
+        console.log("Response details:", {
+          status: response.status,
+          statusText: response.statusText,
+          headers: responseHeaders,
+          url: response.url,
+        });
 
         if (!response.ok) {
           console.error("HTTP error:", response.status);
