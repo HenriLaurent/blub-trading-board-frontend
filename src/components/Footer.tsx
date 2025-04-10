@@ -14,12 +14,12 @@ const Footer: React.FC = () => {
       </a>{" "}
       &{" "}
       <a
-        href="https://twitter.com/H"
+        href="https://twitter.com/Paps0x"
         target="_blank"
         rel="noopener noreferrer"
         className="text-[#FA73A0] hover:text-[#FA73A0]"
       >
-        @H
+        @Paps0x
       </a>
     </footer>
   );
