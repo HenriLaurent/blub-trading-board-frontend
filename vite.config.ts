@@ -13,6 +13,9 @@ export default defineConfig({
   preview: {
     host: "0.0.0.0",
     port: 5173,
-    allowedHosts: ["blub-trading-board-frontend.onrender.com"],
+    allowedHosts: [
+      "blub-trading-board-frontend.onrender.com",
+      "trading-board.blubtheblob.com",
+    ],
   },
 });
