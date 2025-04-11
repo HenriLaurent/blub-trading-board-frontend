@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
         className="text-[#FA73A0] hover:text-[#FA73A0]"
       >
         @0xOveroose
-      </a>{" "}
+      </a>
       ,{" "}
       <a
         href="https://twitter.com/Paps0x"
@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
         className="text-[#FA73A0] hover:text-[#FA73A0]"
       >
         @Paps0x
-      </a>
+      </a>{" "}
       &{" "}
       <a
         href="https://twitter.com/HenriLaurentDev"
