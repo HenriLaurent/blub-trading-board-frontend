@@ -142,240 +142,251 @@ export default function TradingBoard({
   };
 
   return (
-    <div
-      className={`overflow-x-auto max-w-7xl mx-auto w-full bg-white shadow-sm rounded-lg ${className}`}
-    >
-      <div className="p-4">
-        <table className="min-w-full">
-          <thead className="font-gluten">
-            <tr className="border-b border-gray-300 text-gray-500">
-              <th
-                className="py-3 px-4 font-medium cursor-pointer text-left select-none"
-                onClick={() => requestSort("rank")}
-                onMouseEnter={() => setHoveredColumn("rank")}
-                onMouseLeave={() => setHoveredColumn(null)}
-              >
-                <div
-                  className={`relative inline-flex items-center ${getHeaderPadding(
-                    "rank"
-                  )}`}
+    <div className={`overflow-x-auto max-w-7xl mx-auto w-full ${className}`}>
+      <div className="rounded-2xl backdrop-blur-sm p-6 shadow-[inset_0_2px_8px_rgba(0,0,0,0.2)] dark:shadow-none border border-white/20 bg-black/2 dark:bg-inherit relative min-w-fit">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/2 to-transparent pointer-events-none"></div>
+        <div className="rounded-xl">
+          <table className="min-w-full">
+            <thead className="font-gluten">
+              <tr className="border-b border-gray-500 text-slate-700 dark:text-slate-300">
+                <th
+                  className="py-4 px-4 font-medium cursor-pointer text-left select-none"
+                  onClick={() => requestSort("rank")}
+                  onMouseEnter={() => setHoveredColumn("rank")}
+                  onMouseLeave={() => setHoveredColumn(null)}
                 >
-                  Rank
-                  {getSortDirectionIndicator("rank")}
-                </div>
-              </th>
-              <th
-                className="py-3 px-4 font-medium cursor-pointer text-center select-none"
-                onClick={() => requestSort("user")}
-                onMouseEnter={() => setHoveredColumn("user")}
-                onMouseLeave={() => setHoveredColumn(null)}
-              >
-                <div
-                  className={`relative inline-flex items-center justify-center ${getHeaderPadding(
-                    "user"
-                  )}`}
-                >
-                  User
-                  {getSortDirectionIndicator("user")}
-                </div>
-              </th>
-              <th
-                className="py-3 px-4 font-medium cursor-pointer text-center select-none"
-                onClick={() => requestSort("tradingScore")}
-                onMouseEnter={() => setHoveredColumn("tradingScore")}
-                onMouseLeave={() => setHoveredColumn(null)}
-              >
-                <div
-                  className={`relative inline-flex items-center justify-center ${getHeaderPadding(
-                    "tradingScore"
-                  )}`}
-                >
-                  Trading Score
-                  {getSortDirectionIndicator("tradingScore")}
-                </div>
-              </th>
-              <th
-                className="py-3 px-4 font-medium cursor-pointer text-center select-none"
-                onClick={() => requestSort("buyVolume")}
-                onMouseEnter={() => setHoveredColumn("buyVolume")}
-                onMouseLeave={() => setHoveredColumn(null)}
-              >
-                <div
-                  className={`relative inline-flex items-center justify-center -ml-4 ${getHeaderPadding(
-                    "buyVolume"
-                  )}`}
-                >
-                  Buy Volume
-                  {getSortDirectionIndicator("buyVolume")}
-                </div>
-              </th>
-              <th
-                className="py-3 px-4 font-medium cursor-pointer text-center select-none"
-                onClick={() => requestSort("sellVolume")}
-                onMouseEnter={() => setHoveredColumn("sellVolume")}
-                onMouseLeave={() => setHoveredColumn(null)}
-              >
-                <div
-                  className={`relative inline-flex items-center justify-center -ml-4 ${getHeaderPadding(
-                    "sellVolume"
-                  )}`}
-                >
-                  Sell Volume
-                  {getSortDirectionIndicator("sellVolume")}
-                </div>
-              </th>
-              <th
-                className="py-3 px-4 font-medium cursor-pointer text-right select-none"
-                onClick={() => requestSort("currentBalance")}
-                onMouseEnter={() => setHoveredColumn("currentBalance")}
-                onMouseLeave={() => setHoveredColumn(null)}
-              >
-                <div
-                  className={`relative inline-flex items-center justify-end ${getHeaderPadding(
-                    "currentBalance"
-                  )}`}
-                >
-                  Current Balance
-                  {getSortDirectionIndicator("currentBalance")}
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody className="font-nunito">
-            {sortedTraders.map((trader, index) => (
-              <tr key={index} className="hover:bg-gray-50">
-                <td className="py-6 px-4">
-                  <div className="flex items-center">
-                    {trader.rank <= 3 ? (
-                      <div
-                        className={`h-6 w-6 rounded-full flex items-center justify-center mr-2 text-white
-                        ${
-                          trader.rank === 1
-                            ? "bg-yellow-300"
-                            : trader.rank === 2
-                            ? "bg-slate-400"
-                            : "bg-amber-800"
-                        }`}
-                      >
-                        {trader.rank}
-                      </div>
-                    ) : (
-                      <div className="h-6 w-6 flex items-center justify-center mr-2">
-                        {trader.rank}
-                      </div>
-                    )}
+                  <div
+                    className={`relative inline-flex items-center ${getHeaderPadding(
+                      "rank"
+                    )}`}
+                  >
+                    Rank
+                    {getSortDirectionIndicator("rank")}
                   </div>
-                </td>
-                <td className="py-3 px-4 text-center">
-                  <div className="flex items-center justify-center gap-4 font-regular">
-                    <img src={trader.avatar} className="w-8 h-8 rounded-full" />
-
-                    <p>{trader.user}</p>
+                </th>
+                <th
+                  className="py-4 px-4 font-medium cursor-pointer text-left select-none"
+                  onClick={() => requestSort("user")}
+                  onMouseEnter={() => setHoveredColumn("user")}
+                  onMouseLeave={() => setHoveredColumn(null)}
+                >
+                  <div
+                    className={`relative inline-flex items-center justify-start ${getHeaderPadding(
+                      "user"
+                    )}`}
+                  >
+                    User
+                    {getSortDirectionIndicator("user")}
                   </div>
-                </td>
-                <td className="py-3 px-4 text-[#FA73A0] text-center font-bold">
-                  {formatNumber(trader.tradingScore)}
-                </td>
-                <td className="py-3 px-4 text-green-500 text-center font-bold">
-                  {formatNumber(trader.buyVolume)}
-                </td>
-                <td className="py-3 px-4 text-red-500 text-center font-bold">
-                  {formatNumber(trader.sellVolume)}
-                </td>
-                <td className="py-3 px-4 text-slate-700 text-right font-bold">
-                  {formatNumber(trader.currentBalance)}
-                </td>
+                </th>
+                <th
+                  className="py-4 px-4 font-medium cursor-pointer text-center select-none"
+                  onClick={() => requestSort("tradingScore")}
+                  onMouseEnter={() => setHoveredColumn("tradingScore")}
+                  onMouseLeave={() => setHoveredColumn(null)}
+                >
+                  <div
+                    className={`relative inline-flex items-center justify-center ${getHeaderPadding(
+                      "tradingScore"
+                    )}`}
+                  >
+                    Trading Score
+                    {getSortDirectionIndicator("tradingScore")}
+                  </div>
+                </th>
+                <th
+                  className="py-4 px-4 font-medium cursor-pointer text-center select-none"
+                  onClick={() => requestSort("buyVolume")}
+                  onMouseEnter={() => setHoveredColumn("buyVolume")}
+                  onMouseLeave={() => setHoveredColumn(null)}
+                >
+                  <div
+                    className={`relative inline-flex items-center justify-center -ml-4 ${getHeaderPadding(
+                      "buyVolume"
+                    )}`}
+                  >
+                    Buy Volume
+                    {getSortDirectionIndicator("buyVolume")}
+                  </div>
+                </th>
+                <th
+                  className="py-4 px-4 font-medium cursor-pointer text-center select-none"
+                  onClick={() => requestSort("sellVolume")}
+                  onMouseEnter={() => setHoveredColumn("sellVolume")}
+                  onMouseLeave={() => setHoveredColumn(null)}
+                >
+                  <div
+                    className={`relative inline-flex items-center justify-center -ml-4 ${getHeaderPadding(
+                      "sellVolume"
+                    )}`}
+                  >
+                    Sell Volume
+                    {getSortDirectionIndicator("sellVolume")}
+                  </div>
+                </th>
+                <th
+                  className="py-4 px-4 font-medium cursor-pointer text-right select-none"
+                  onClick={() => requestSort("currentBalance")}
+                  onMouseEnter={() => setHoveredColumn("currentBalance")}
+                  onMouseLeave={() => setHoveredColumn(null)}
+                >
+                  <div
+                    className={`relative inline-flex items-center justify-end ${getHeaderPadding(
+                      "currentBalance"
+                    )}`}
+                  >
+                    Current Balance
+                    {getSortDirectionIndicator("currentBalance")}
+                  </div>
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-
-        {/* Add pagination controls */}
-        {pagination && pagination.totalPages > 1 && (
-          <div className="mt-6 flex justify-center gap-2">
-            <button
-              onClick={() => pagination.onPageChange(1)}
-              disabled={pagination.currentPage === 1}
-              className={`px-3 py-1 rounded-md ${
-                pagination.currentPage === 1
-                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-              }`}
-            >
-              First
-            </button>
-            <button
-              onClick={() =>
-                pagination.onPageChange(pagination.currentPage - 1)
-              }
-              disabled={pagination.currentPage === 1}
-              className={`px-3 py-1 rounded-md ${
-                pagination.currentPage === 1
-                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-              }`}
-            >
-              Previous
-            </button>
-
-            <div className="flex gap-1">
-              {/* Show page numbers, with ellipsis for large ranges */}
-              {Array.from({ length: pagination.totalPages }, (_, i) => i + 1)
-                .filter(
-                  (page) =>
-                    page === 1 ||
-                    page === pagination.totalPages ||
-                    Math.abs(page - pagination.currentPage) < 2
-                )
-                .map((page, index, array) => {
-                  const previousPage = array[index - 1];
-                  const showEllipsisBefore =
-                    previousPage && page - previousPage > 1;
-
-                  return (
-                    <div key={page} className="flex items-center">
-                      {showEllipsisBefore && <span className="px-2">...</span>}
-                      <button
-                        onClick={() => pagination.onPageChange(page)}
-                        className={`w-8 h-8 flex items-center justify-center rounded-md ${
-                          page === pagination.currentPage
-                            ? "bg-[#FA73A0] text-white"
-                            : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-                        }`}
-                      >
-                        {page}
-                      </button>
+            </thead>
+            <tbody className="font-nunito">
+              {sortedTraders.map((trader, index) => (
+                <tr
+                  key={index}
+                  className="hover:bg-black/5 transition-colors duration-150"
+                >
+                  <td className="py-6 px-4">
+                    <div className="flex items-center">
+                      {trader.rank <= 3 ? (
+                        <div
+                          className={`h-6 w-6 rounded-full flex items-center justify-center mr-2 text-white drop-shadow-sm font-gluten text-xl
+                          ${
+                            trader.rank === 1
+                              ? "bg-yellow-300"
+                              : trader.rank === 2
+                              ? "bg-slate-400"
+                              : "bg-amber-800"
+                          }`}
+                        >
+                          {trader.rank}
+                        </div>
+                      ) : (
+                        <div className="h-6 w-6 flex items-center justify-center mr-2 font-gluten text-xl text-slate-800 dark:text-slate-300">
+                          {trader.rank}
+                        </div>
+                      )}
                     </div>
-                  );
-                })}
-            </div>
+                  </td>
+                  <td className="py-3 px-4 text-center">
+                    <div className="flex items-center justify-start gap-4 font-regular">
+                      <img
+                        src={trader.avatar}
+                        className="w-8 h-8 rounded-full shadow-sm"
+                        alt={`${trader.user}'s avatar`}
+                      />
+                      <p className="text-slate-800 dark:text-slate-300">
+                        {trader.user}
+                      </p>
+                    </div>
+                  </td>
+                  <td className="py-3 px-4 text-[#FA73A0] text-center font-bold">
+                    {formatNumber(trader.tradingScore)}
+                  </td>
+                  <td className="py-3 px-4 text-green-500 text-center font-bold">
+                    {formatNumber(trader.buyVolume)}
+                  </td>
+                  <td className="py-3 px-4 text-red-500 text-center font-bold">
+                    {formatNumber(trader.sellVolume)}
+                  </td>
+                  <td className="py-3 px-4 text-slate-700 text-right font-bold dark:text-slate-300">
+                    {formatNumber(trader.currentBalance)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-            <button
-              onClick={() =>
-                pagination.onPageChange(pagination.currentPage + 1)
-              }
-              disabled={pagination.currentPage === pagination.totalPages}
-              className={`px-3 py-1 rounded-md ${
-                pagination.currentPage === pagination.totalPages
-                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-              }`}
-            >
-              Next
-            </button>
-            <button
-              onClick={() => pagination.onPageChange(pagination.totalPages)}
-              disabled={pagination.currentPage === pagination.totalPages}
-              className={`px-3 py-1 rounded-md ${
-                pagination.currentPage === pagination.totalPages
-                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-              }`}
-            >
-              Last
-            </button>
-          </div>
-        )}
+          {/* Add pagination controls */}
+          {pagination && pagination.totalPages > 1 && (
+            <div className="py-4 px-6 flex justify-center gap-2 font-nunito">
+              <button
+                onClick={() => pagination.onPageChange(1)}
+                disabled={pagination.currentPage === 1}
+                className={`${
+                  pagination.currentPage === 1
+                    ? "rounded-xl backdrop-blur-sm px-4 py-2 shadow-[inset_0_2px_8px_rgba(0,0,0,0.2)] border border-white/20 bg-black/2 relative overflow-hidden text-slate-500"
+                    : "rounded-xl backdrop-blur-sm px-4 py-2 neumorphic-button border border-white/20 bg-black/2 relative overflow-hidden"
+                }`}
+              >
+                First
+              </button>
+              <button
+                onClick={() =>
+                  pagination.onPageChange(pagination.currentPage - 1)
+                }
+                disabled={pagination.currentPage === 1}
+                className={`${
+                  pagination.currentPage === 1
+                    ? "rounded-xl backdrop-blur-sm px-4 py-2 shadow-[inset_0_2px_8px_rgba(0,0,0,0.2)] border border-white/20 bg-black/2 relative overflow-hidden text-slate-500"
+                    : "rounded-xl backdrop-blur-sm px-4 py-2 neumorphic-button border border-white/20 bg-black/2 relative overflow-hidden text-slate-800 dark:font-bold"
+                }`}
+              >
+                Previous
+              </button>
+
+              <div className="flex gap-2 mx-4">
+                {/* Show page numbers, with ellipsis for large ranges */}
+                {Array.from({ length: pagination.totalPages }, (_, i) => i + 1)
+                  .filter(
+                    (page) =>
+                      page === 1 ||
+                      page === pagination.totalPages ||
+                      Math.abs(page - pagination.currentPage) < 2
+                  )
+                  .map((page, index, array) => {
+                    const previousPage = array[index - 1];
+                    const showEllipsisBefore =
+                      previousPage && page - previousPage > 1;
+
+                    return (
+                      <div key={page} className="flex items-center">
+                        {showEllipsisBefore && (
+                          <span className="px-2">...</span>
+                        )}
+                        <button
+                          onClick={() => pagination.onPageChange(page)}
+                          className={`${
+                            page === pagination.currentPage
+                              ? "rounded-xl backdrop-blur-sm px-4 py-2 shadow-[inset_0_2px_8px_rgba(0,0,0,0.2)] border border-white/20 bg-black/2 relative overflow-hidden text-slate-500"
+                              : "rounded-xl backdrop-blur-sm px-4 py-2 neumorphic-button border border-white/20 bg-black/2 relative overflow-hidden text-slate-800 dark:font-bold"
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      </div>
+                    );
+                  })}
+              </div>
+
+              <button
+                onClick={() =>
+                  pagination.onPageChange(pagination.currentPage + 1)
+                }
+                disabled={pagination.currentPage === pagination.totalPages}
+                className={`${
+                  pagination.currentPage === pagination.totalPages
+                    ? "rounded-xl backdrop-blur-sm px-4 py-2 shadow-[inset_0_2px_8px_rgba(0,0,0,0.2)] border border-white/20 bg-black/2 relative overflow-hidden text-slate-500"
+                    : "rounded-xl backdrop-blur-sm px-4 py-2 neumorphic-button border border-white/20 bg-black/2 relative overflow-hidden text-slate-800 dark:font-bold"
+                }`}
+              >
+                Next
+              </button>
+              <button
+                onClick={() => pagination.onPageChange(pagination.totalPages)}
+                disabled={pagination.currentPage === pagination.totalPages}
+                className={`${
+                  pagination.currentPage === pagination.totalPages
+                    ? "rounded-xl backdrop-blur-sm px-4 py-2 shadow-[inset_0_2px_8px_rgba(0,0,0,0.2)] border border-white/20 bg-black/2 relative overflow-hidden text-slate-500"
+                    : "rounded-xl backdrop-blur-sm px-4 py-2 neumorphic-button border border-white/20 bg-black/2 relative overflow-hidden text-slate-800 dark:font-bold"
+                }`}
+              >
+                Last
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

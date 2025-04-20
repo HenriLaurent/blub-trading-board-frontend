@@ -8,6 +8,7 @@ import { useLinkWallet } from "../api/wallet";
 import { CustomConnectButton } from "./CustomConnectButton";
 import DisconnectTwitterModal from "./DisconnectTwitterModal";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/16/solid";
+import ThemeToggle from "./ThemeToggle";
 
 type HeaderProps = {
   user: any;
@@ -76,15 +77,20 @@ export default function Header({ user }: HeaderProps) {
   }, []);
 
   return (
-    <header className="bg-white shadow-md py-4 w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="py-4 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl md:text-3xl font-bold text-[#FA73A0] font-gluten">
+          <h1 className="hidden lg:inline text-2xl md:text-3xl font-bold text-[#FA73A0]  font-gluten pt-1 ">
             <Link to="/">Blub Trading Board</Link>
           </h1>
+          <img
+            src="/blub-logo.png"
+            className="lg:hidden rounded-lg w-12 h-12"
+          />
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="flex gap-4 md:hidden">
+            <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none"
@@ -99,24 +105,23 @@ export default function Header({ user }: HeaderProps) {
 
           {/* Desktop navigation */}
           <div className="hidden md:flex items-center gap-4">
-            <CustomConnectButton />
+            <ThemeToggle />
             <div className="flex items-center space-x-4">
               {user?.authenticated ? (
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="cursor-pointer hover:bg-gray-100 px-4 py-2 rounded-xl"
-                >
+                <div className="flex items-center gap-2 rounded-xl px-4 py-2 neumorphic-button border border-white/20 relative font-nunito font-bold">
                   <div className="flex items-center">
                     {user.profile_image_url && (
                       <img
                         src={user.profile_image_url}
                         alt={user.display_name || user.username}
-                        className="w-8 h-8 rounded-full mr-2"
+                        className="w-6 h-6 rounded-full mr-2"
                       />
                     )}
-                    <span className="font-medium">@{user.username}</span>
+                    <span className="font-nunito text-slate-800 font-bold">
+                      {user.display_name}
+                    </span>
                   </div>
-                </button>
+                </div>
               ) : (
                 <TwitterLoginButton
                   onLogin={handleLogin}
@@ -124,6 +129,7 @@ export default function Header({ user }: HeaderProps) {
                 />
               )}
             </div>
+            {user?.authenticated && <CustomConnectButton />}
           </div>
         </div>
       </div>
@@ -131,17 +137,11 @@ export default function Header({ user }: HeaderProps) {
       {/* Mobile menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden mobile-menu-container">
-          <div className="px-4 py-3 space-y-4 bg-white border-t border-gray-200 shadow-lg">
-            <div className="flex flex-col space-y-3">
-              <CustomConnectButton />
+          <div className="mt-4 px-4 py-3 space-y-4  border-t border-gray-200 shadow-lg">
+            <div className="flex items-center space-y-3">
+              {user?.authenticated && <CustomConnectButton />}
               {user?.authenticated ? (
-                <button
-                  onClick={() => {
-                    setIsModalOpen(true);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="cursor-pointer hover:bg-gray-100 px-4 py-2 rounded-xl w-full"
-                >
+                <button className="cursor-pointer hover:bg-gray-100 px-4 py-2 rounded-xl w-full">
                   <div className="flex items-center">
                     {user.profile_image_url && (
                       <img

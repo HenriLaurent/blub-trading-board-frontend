@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Gluten:wght@100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Gluten:wght@100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 @import "tailwindcss";
+@config "../tailwind.config.js";
 
 @theme {
   --font-nunito: "Nunito", sans-serif;
@@ -22,4 +23,56 @@
   100% {
     transform: translateY(0);
   }
+}
+
+.light .grain {
+  z-index: 5;
+  opacity: 0.39;
+  background-image: url(/grain.png);
+  background-position: 50%;
+  background-size: auto;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0%;
+  pointer-events: none;
+}
+
+.dark .grain {
+  z-index: 5;
+  opacity: 0.24;
+  background-image: url(/grain.png);
+  background-position: 50%;
+  background-size: auto;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0%;
+  pointer-events: none;
+}
+
+.light .neumorphic-button {
+  background: linear-gradient(145deg, #e2ccd6, #fce5ef);
+  box-shadow: 2px 2px 5px #b19fa7, -2px -2px 5px #fde3ef;
+}
+
+.dark .neumorphic-button {
+  background: #cbd5e1;
+  box-shadow: none;
+}
+
+.light .neumorphic-button:hover {
+  background: linear-gradient(145deg, #ceb8c2, #e9d0db);
+}
+
+.dark .neumorphic-button:hover {
+  background: #aab3be;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }

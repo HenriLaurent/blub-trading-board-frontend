@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useDisconnect } from "wagmi";
 import { API_URL } from "../config";
 
 export const useStartTwitterAuth = () => {
@@ -60,6 +61,7 @@ export const useCurrentUser = () => {
 
 export const useLogout = () => {
   const queryClient = useQueryClient();
+  const { disconnect } = useDisconnect();
 
   return useMutation({
     mutationFn: async () => {
@@ -74,6 +76,8 @@ export const useLogout = () => {
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
+
+      await disconnect();
 
       return response.json();
     },

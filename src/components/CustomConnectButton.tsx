@@ -36,11 +36,13 @@ export const CustomConnectButton = () => {
             {!connected ? (
               <button
                 onClick={openConnectModal}
-                className="w-full md:w-auto bg-gradient-to-r from-[#FA73A0] to-[#d85086] px-3 py-2 md:px-4 md:py-3 rounded-xl text-white font-bold cursor-pointer hover:bg-rose-500 duration-200 inline-flex items-center justify-center gap-1 md:gap-2 text-sm md:text-base"
+                className="flex gap-2 rounded-xl backdrop-blur-sm px-4 py-2 neumorphic-button border border-white/20 bg-black/2 relative overflow-hidden"
                 type="button"
               >
-                <WalletIcon className="w-4 h-4 md:w-6 md:h-6 text-white" />
-                <span>Connect Wallet</span>
+                <WalletIcon className="w-4 h-4 md:w-6 md:h-6 text-slate-800" />
+                <span className="text-slate-800 dark:font-bold font-nunito">
+                  Connect Wallet
+                </span>
               </button>
             ) : (
               <ConnectedButton
