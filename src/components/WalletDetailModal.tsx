@@ -159,13 +159,13 @@ export default function WalletDetailModal({
                 </p>
               </div>
               <div className="text-center p-3">
-                <p className="text-gray-500 text-sm">Buy Volume</p>
+                <p className="text-gray-500 text-sm">Volume In</p>
                 <p className="text-green-500 font-bold text-xl">
                   {totalBuyVolume.toLocaleString()}
                 </p>
               </div>
               <div className="text-center p-3">
-                <p className="text-gray-500 text-sm">Sell Volume</p>
+                <p className="text-gray-500 text-sm">Volume Out</p>
                 <p className="text-red-500 font-bold text-xl">
                   {totalSellVolume.toLocaleString()}
                 </p>

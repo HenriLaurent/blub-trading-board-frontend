@@ -205,7 +205,7 @@ export default function TradingBoard({
                       "buyVolume"
                     )}`}
                   >
-                    Buy Volume
+                    Volume In
                     {getSortDirectionIndicator("buyVolume")}
                   </div>
                 </th>
@@ -220,7 +220,7 @@ export default function TradingBoard({
                       "sellVolume"
                     )}`}
                   >
-                    Sell Volume
+                    Volume Out
                     {getSortDirectionIndicator("sellVolume")}
                   </div>
                 </th>
