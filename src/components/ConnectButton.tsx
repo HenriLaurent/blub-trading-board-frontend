@@ -50,7 +50,7 @@ export default function ConnectedButton({
     return (
       <>
         <button
-          className="bg-gradient-to-r from-[#FA73A0] to-[#d85086] px-3 py-2 md:px-4 md:py-3 rounded-xl text-white font-bold cursor-pointer hover:bg-rose-500 duration-200 inline-flex items-center gap-1 md:gap-2 font-nunito text-sm md:text-base"
+          className="flex items-center gap-2 rounded-xl backdrop-blur-sm px-4 py-2 neumorphic-button border border-white/20 relative overflow-hidden font-nunito font-bold text-slate-800"
           onClick={() => setIsModalOpen(true)}
           type="button"
         >
@@ -84,7 +84,7 @@ export default function ConnectedButton({
 
   return (
     <button
-      className="bg-gradient-to-r from-[#FA73A0] to-[#d85086] px-3 py-2 md:px-4 md:py-3 rounded-xl text-white font-bold cursor-pointer hover:bg-rose-500 duration-200 inline-flex items-center gap-1 md:gap-2 font-nunito text-sm md:text-base"
+      className="flex items-center gap-2 rounded-xl backdrop-blur-sm px-4 py-2 neumorphic-button border border-white/20 relative overflow-hidden font-nunito font-bold text-slate-800"
       onClick={openAccountModal}
       type="button"
     >

@@ -5,8 +5,8 @@ import {
   ArrowRightEndOnRectangleIcon,
 } from "@heroicons/react/16/solid";
 import { useEffect, useRef, useState } from "react";
-import { useDisconnect } from "wagmi";
 import { formatTokenAmount } from "../utils/formatters";
+import { useLogout } from "../api/auth";
 
 type WalletDetailModalProps = {
   isOpen: boolean;
@@ -27,7 +27,7 @@ export default function WalletDetailModal({
   const modalRef = useRef<HTMLDivElement>(null);
   const [copySuccess, setCopySuccess] = useState(false);
 
-  const { disconnect } = useDisconnect();
+  const logoutMutation = useLogout();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -79,7 +79,7 @@ export default function WalletDetailModal({
   };
 
   const handleDisconnect = () => {
-    disconnect();
+    logoutMutation.mutate();
     onClose();
   };
 
@@ -90,9 +90,10 @@ export default function WalletDetailModal({
         backgroundColor: "rgba(0, 0, 0, 0.3)",
       }}
     >
+      <div className="grain" />
       <div
         ref={modalRef}
-        className="relative bg-gray-100 rounded-3xl max-w-[400px] w-full shadow-2xl overflow-hidden animate-fadeIn font-nunito"
+        className="relative bg-[#ecd4df] dark:bg-slate-800 rounded-3xl max-w-[400px] w-full shadow-2xl overflow-hidden animate-fadeIn font-nunito "
         style={{
           animation:
             "fadeIn 150ms ease, slideUp 350ms cubic-bezier(.15,1.15,0.6,1.00)",
@@ -101,9 +102,9 @@ export default function WalletDetailModal({
         <div className="absolute top-4 right-4">
           <button
             onClick={onClose}
-            className="bg-gray-200 rounded-full p-1 hover:scale-105 duration-200 cursor-pointer"
+            className="flex flex-col items-center justify-center gap-0.5 rounded-xl px-4 py-2 neumorphic-button border border-white/20 text-slate-800 relative"
           >
-            <XMarkIcon className="w-5 h-5 text-gray-600" />
+            <XMarkIcon className="w-5 h-5 text-slate-600" />
           </button>
         </div>
         <div className="p-6">
@@ -122,7 +123,7 @@ export default function WalletDetailModal({
                 />
               </svg>
             </div>
-            <h3 className="text-gray-900 font-black text-lg text-center">
+            <h3 className="text-slate-800 dark:text-slate-300 font-black text-lg text-center">
               Trading Statistics
             </h3>
             {walletAddress && (
@@ -143,7 +144,7 @@ export default function WalletDetailModal({
             )}
           </div>
 
-          <div className="bg-white rounded-xl p-4 mb-4">
+          <div className="rounded-2xl backdrop-blur-sm p-2 shadow-[inset_0_2px_8px_rgba(0,0,0,0.2)] dark:shadow-none border border-white/20 bg-black/2 relative overflow-hidden mb-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center p-3">
                 <p className="text-gray-500 text-sm">Trading Score</p>
@@ -153,7 +154,7 @@ export default function WalletDetailModal({
               </div>
               <div className="text-center p-3">
                 <p className="text-gray-500 text-sm">Balance</p>
-                <p className="text-gray-800 font-bold text-xl">
+                <p className="text-slate-800 font-bold text-xl dark:text-slate-300">
                   {totalBalance.toLocaleString()}
                 </p>
               </div>
@@ -175,14 +176,14 @@ export default function WalletDetailModal({
           <div className="flex gap-2">
             <button
               onClick={copyAddress}
-              className="flex-1 py-2.5 rounded-xl font-medium text-gray-900 text-sm bg-white cursor-pointer flex flex-col items-center hover:bg-gray-50 hover:scale-105 duration-75"
+              className="flex-1 flex flex-col items-center justify-center gap-0.5 rounded-xl backdrop-blur-sm px-4 py-2 neumorphic-button border border-white/20 text-slate-800 relative overflow-hidden font-nunito font-bold"
             >
               <ClipboardIcon className="w-4 h-4 text-gray-900" />
               <p className="text-xs font-bold">Copy Address</p>
             </button>
             <button
               onClick={handleDisconnect}
-              className="flex-1 py-2.5 rounded-xl font-medium text-gray-900 text-sm bg-white cursor-pointer flex flex-col items-center hover:bg-gray-50 hover:scale-105 duration-75"
+              className="flex-1 flex flex-col items-center justify-center gap-0.5 rounded-xl backdrop-blur-sm px-4 py-2 neumorphic-button border border-white/20 text-slate-800 relative overflow-hidden font-nunito font-bold"
             >
               <ArrowRightEndOnRectangleIcon className="w-4 h-4 text-gray-900" />
               <p className="text-xs font-bold">Disconnect</p>
