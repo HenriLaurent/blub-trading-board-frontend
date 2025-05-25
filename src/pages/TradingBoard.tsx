@@ -25,22 +25,16 @@ export default function TradingBoardPage() {
   const traders = useMemo(() => {
     if (!tradingVolumes || !Array.isArray(tradingVolumes.items)) return [];
 
-    return tradingVolumes.items
-      .map((volume, index) => ({
-        rank: (page - 1) * limit + index + 1,
-        user: volume.username || `Anonymous ${index + 1}`,
-        avatar: volume.profile_image_url || "",
-        tradingScore: parseFloat(formatTokenAmount(volume.trading_points, 15)),
-        buyVolume: parseFloat(formatTokenAmount(volume.volume_in)),
-        sellVolume: parseFloat(formatTokenAmount(volume.volume_out)),
-        currentBalance: parseFloat(formatTokenAmount(volume.balance)),
-      }))
-      .sort((a, b) => b.tradingScore - a.tradingScore)
-      .map((trader, index) => ({
-        ...trader,
-        rank: (page - 1) * limit + index + 1,
-      }));
-  }, [tradingVolumes, page, limit]);
+    return tradingVolumes.items.map((volume, index) => ({
+      rank: volume.rank,
+      user: volume.username || `Anonymous ${index + 1}`,
+      avatar: volume.profile_image_url || "",
+      tradingScore: parseFloat(formatTokenAmount(volume.trading_points, 15)),
+      buyVolume: parseFloat(formatTokenAmount(volume.volume_in)),
+      sellVolume: parseFloat(formatTokenAmount(volume.volume_out)),
+      currentBalance: parseFloat(formatTokenAmount(volume.balance)),
+    }));
+  }, [tradingVolumes]);
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);

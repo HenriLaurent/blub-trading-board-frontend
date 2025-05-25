@@ -12,6 +12,7 @@ interface TradingVolumeItem {
   transfer_count: number;
   presale_type: string[];
   wallet_addresses: string[];
+  rank: number;
 }
 
 interface TradingVolumeResponse {
