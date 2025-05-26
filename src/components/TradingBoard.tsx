@@ -92,7 +92,9 @@ export default function TradingBoard({
         {validEntries.map((entry, index) => (
           <span key={entry.key} className="flex items-center gap-1">
             <span className="text-base">{entry.icon}</span>
-            <span className="font-medium">x{entry.count}</span>
+            <span className="font-medium text-slate-800 dark:text-slate-300">
+              x{entry.count}
+            </span>
             {index < validEntries.length - 1 && (
               <span className="text-slate-400 mx-1">|</span>
             )}

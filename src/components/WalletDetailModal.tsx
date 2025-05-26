@@ -70,6 +70,16 @@ export default function WalletDetailModal({
     0
   );
 
+  // Calculate total NFTs
+  const totalNfts = tradingData.reduce(
+    (totals, data) => ({
+      gold_nft: totals.gold_nft + (data.nft_counts?.gold_nft || 0),
+      ring_nft: totals.ring_nft + (data.nft_counts?.ring_nft || 0),
+      blob_nft: totals.blob_nft + (data.nft_counts?.blob_nft || 0),
+    }),
+    { gold_nft: 0, ring_nft: 0, blob_nft: 0 }
+  );
+
   const copyAddress = () => {
     if (walletAddress) {
       navigator.clipboard.writeText(walletAddress);
@@ -155,6 +165,34 @@ export default function WalletDetailModal({
                 <p className="text-gray-500 text-sm">Volume Out</p>
                 <p className="text-red-500 font-bold text-xl">
                   {totalSellVolume.toLocaleString()}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl backdrop-blur-sm p-2 shadow-[inset_0_2px_8px_rgba(0,0,0,0.2)] dark:shadow-none border border-white/20 bg-black/2 relative overflow-hidden mb-4">
+            <div className="text-center p-3 mb-2">
+              <p className="text-gray-500 text-sm font-semibold">
+                Blub Reserve
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="text-center p-3 bg-gradient-to-br from-yellow-400/10 to-yellow-600/10 rounded-xl border border-yellow-400/20">
+                <p className="text-yellow-600 text-xs font-semibold">Gold</p>
+                <p className="text-yellow-700 font-bold text-lg">
+                  {totalNfts.gold_nft}
+                </p>
+              </div>
+              <div className="text-center p-3 bg-gradient-to-br from-blue-400/10 to-blue-600/10 rounded-xl border border-purple-400/20">
+                <p className="text-blue-600 text-xs font-semibold">Ring</p>
+                <p className="text-blue-700 font-bold text-lg">
+                  {totalNfts.ring_nft}
+                </p>
+              </div>
+              <div className="text-center p-3 bg-gradient-to-br from-purple-400/10 to-purple-600/10 rounded-xl border border-blue-400/20">
+                <p className="text-purple-600 text-xs font-semibold">Blob</p>
+                <p className="text-purple-700 font-bold text-lg">
+                  {totalNfts.blob_nft}
                 </p>
               </div>
             </div>
