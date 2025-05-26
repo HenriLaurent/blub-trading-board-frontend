@@ -4,6 +4,7 @@ import TradingBoard from "../components/TradingBoard";
 import { formatTokenAmount } from "../utils/formatters";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useDebounce } from "../hooks/useDebounce";
+import InfoSection from "../components/InfoSection";
 
 export default function TradingBoardPage() {
   const [page, setPage] = useState(1);
@@ -116,6 +117,7 @@ export default function TradingBoardPage() {
 
   return (
     <div className="max-w-7xl mx-auto py-8 space-y-6">
+      <InfoSection />
       {/* Search bar */}
       <div className="rounded-2xl backdrop-blur-sm p-2 shadow-[inset_0_2px_8px_rgba(0,0,0,0.2)] dark:shadow-none border border-white/20 bg-black/2 relative overflow-hidden dark:text-slate-300">
         <div className="absolute inset-0 bg-gradient-to-b from-black/2 to-transparent pointer-events-none"></div>
