@@ -109,20 +109,7 @@ export default function WalletDetailModal({
         </div>
         <div className="p-6">
           <div className="flex flex-col items-center justify-center mb-6 gap-4">
-            <div className="bg-[#FA73A0] rounded-full p-3">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 4L14.5 9.5L20 12L14.5 14.5L12 20L9.5 14.5L4 12L9.5 9.5L12 4Z"
-                  fill="white"
-                />
-              </svg>
-            </div>
+            <img src="/blub-logo.png" className=" rounded-lg w-12 h-12" />
             <h3 className="text-slate-800 dark:text-slate-300 font-black text-lg text-center">
               Trading Statistics
             </h3>
