@@ -1,5 +1,5 @@
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/16/solid";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 
 // Types for trader data
 export interface Trader {
@@ -21,24 +21,21 @@ interface TradingBoardProps {
     totalPages: number;
     onPageChange: (page: number) => void;
   };
+  sortConfig?: {
+    key: keyof Trader;
+    direction: "ascending" | "descending";
+  };
+  onSort?: (key: keyof Trader, direction: "ascending" | "descending") => void;
 }
-
-// Type for sort configuration
-type SortConfig = {
-  key: keyof Trader;
-  direction: "ascending" | "descending";
-} | null;
 
 export default function TradingBoard({
   traders,
   className = "",
   pagination,
+  sortConfig,
+  onSort,
 }: TradingBoardProps) {
   // State for sorting and hover
-  const [sortConfig, setSortConfig] = useState<SortConfig>({
-    key: "rank",
-    direction: "ascending",
-  });
   const [hoveredColumn, setHoveredColumn] = useState<keyof Trader | null>(null);
 
   // Request sort function
@@ -53,23 +50,10 @@ export default function TradingBoard({
       direction = "descending";
     }
 
-    setSortConfig({ key, direction });
+    if (onSort) {
+      onSort(key, direction);
+    }
   };
-
-  // Get sorted items using useMemo to prevent unnecessary re-renders
-  const sortedTraders = useMemo(() => {
-    if (!sortConfig) return traders;
-
-    return [...traders].sort((a, b) => {
-      if (a[sortConfig.key] < b[sortConfig.key]) {
-        return sortConfig.direction === "ascending" ? -1 : 1;
-      }
-      if (a[sortConfig.key] > b[sortConfig.key]) {
-        return sortConfig.direction === "ascending" ? 1 : -1;
-      }
-      return 0;
-    });
-  }, [traders, sortConfig]);
 
   // Format large numbers with commas
   const formatNumber = (num: number): string => {
@@ -164,19 +148,13 @@ export default function TradingBoard({
                     {getSortDirectionIndicator("rank")}
                   </div>
                 </th>
-                <th
-                  className="py-4 px-4 font-medium cursor-pointer text-left select-none"
-                  onClick={() => requestSort("user")}
-                  onMouseEnter={() => setHoveredColumn("user")}
-                  onMouseLeave={() => setHoveredColumn(null)}
-                >
+                <th className="py-4 px-4 font-medium text-left select-none">
                   <div
                     className={`relative inline-flex items-center justify-start ${getHeaderPadding(
                       "user"
                     )}`}
                   >
                     User
-                    {getSortDirectionIndicator("user")}
                   </div>
                 </th>
                 <th
@@ -242,7 +220,7 @@ export default function TradingBoard({
               </tr>
             </thead>
             <tbody className="font-nunito">
-              {sortedTraders.map((trader, index) => (
+              {traders.map((trader, index) => (
                 <tr
                   key={index}
                   className="hover:bg-black/5 transition-colors duration-150"

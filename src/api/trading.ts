@@ -46,13 +46,21 @@ interface TradingVolumesOptions {
   page?: number;
   limit?: number;
   search?: string;
+  orderBy?: string;
+  orderDirection?: "asc" | "desc";
 }
 
 export const useTradingVolumes = (options: TradingVolumesOptions = {}) => {
-  const { page = 1, limit = 10, search = "" } = options;
+  const {
+    page = 1,
+    limit = 10,
+    search = "",
+    orderBy = "",
+    orderDirection = "asc",
+  } = options;
 
   return useQuery<TradingVolumeResponse, Error>({
-    queryKey: ["tradingVolumes", page, limit, search],
+    queryKey: ["tradingVolumes", page, limit, search, orderBy, orderDirection],
     queryFn: async () => {
       try {
         const params = new URLSearchParams({
@@ -62,6 +70,11 @@ export const useTradingVolumes = (options: TradingVolumesOptions = {}) => {
 
         if (search) {
           params.append("search", search);
+        }
+
+        if (orderBy) {
+          params.append("order_by", orderBy);
+          params.append("order_direction", orderDirection);
         }
 
         const response = await fetch(

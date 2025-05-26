@@ -10,17 +10,25 @@ export default function TradingBoardPage() {
   const limit = 20;
   const [showLimitDropdown, setShowLimitDropdown] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [orderBy, setOrderBy] = useState("rank");
+  const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("asc");
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const {
     data: tradingVolumes,
     isLoading,
     error,
-  } = useTradingVolumes({ page, limit, search: debouncedSearchTerm });
+  } = useTradingVolumes({
+    page,
+    limit,
+    search: debouncedSearchTerm,
+    orderBy,
+    orderDirection,
+  });
 
   useEffect(() => {
     setPage(1);
-  }, [debouncedSearchTerm, limit]);
+  }, [debouncedSearchTerm, limit, orderBy, orderDirection]);
 
   const traders = useMemo(() => {
     if (!tradingVolumes || !Array.isArray(tradingVolumes.items)) return [];
@@ -43,6 +51,53 @@ export default function TradingBoardPage() {
 
   const clearSearch = () => {
     setSearchTerm("");
+  };
+
+  const handleSort = (
+    key: keyof (typeof traders)[0],
+    direction: "ascending" | "descending"
+  ) => {
+    // Map the trader keys to API field names
+    const fieldMapping = {
+      rank: "rank",
+      user: "username",
+      avatar: "profile_image_url",
+      tradingScore: "trading_points",
+      buyVolume: "volume_in",
+      sellVolume: "volume_out",
+      currentBalance: "balance",
+    };
+
+    const apiField = fieldMapping[key];
+    setOrderBy(apiField);
+    setOrderDirection(direction === "descending" ? "desc" : "asc");
+  };
+
+  const getCurrentSortConfig = () => {
+    if (!orderBy) return undefined;
+
+    // Map API field names back to trader keys
+    const reverseFieldMapping = {
+      rank: "rank",
+      username: "user",
+      profile_image_url: "avatar",
+      trading_points: "tradingScore",
+      volume_in: "buyVolume",
+      volume_out: "sellVolume",
+      balance: "currentBalance",
+    };
+
+    const traderKey =
+      reverseFieldMapping[orderBy as keyof typeof reverseFieldMapping];
+    if (!traderKey) return undefined;
+
+    return {
+      key: traderKey as keyof (typeof traders)[0],
+      direction:
+        orderDirection === "desc"
+          ? ("descending" as const)
+          : ("ascending" as const),
+    };
   };
 
   useEffect(() => {
@@ -116,6 +171,8 @@ export default function TradingBoardPage() {
                 }
               : undefined
           }
+          sortConfig={getCurrentSortConfig()}
+          onSort={handleSort}
         />
       )}
     </div>
