@@ -81,7 +81,9 @@ export default function Header({ user }: HeaderProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
         <div className="flex justify-between items-center">
           <h1 className="hidden lg:inline text-2xl md:text-3xl font-bold text-[#FA73A0]  font-gluten pt-1 ">
-            <Link to="/">Blub Trading Board</Link>
+            <Link to="/">
+              <img src="/blub-title.png" className="w-84" />
+            </Link>
           </h1>
           <img
             src="/blub-logo.png"
