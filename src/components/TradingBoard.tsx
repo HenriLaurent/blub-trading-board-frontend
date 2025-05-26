@@ -10,6 +10,11 @@ export interface Trader {
   buyVolume: number;
   sellVolume: number;
   currentBalance: number;
+  nftCounts?: {
+    gold_nft: number;
+    ring_nft: number;
+    blob_nft: number;
+  };
 }
 
 // Props interface for the component
@@ -60,6 +65,43 @@ export default function TradingBoard({
     return num.toLocaleString();
   };
 
+  // Render NFT counts with icons
+  const renderNftCounts = (nftCounts: Trader["nftCounts"]) => {
+    // Handle undefined or null nftCounts
+    if (!nftCounts) {
+      return <span className="text-slate-400">-</span>;
+    }
+
+    const nftEntries = [
+      { key: "gold_nft", icon: "🟡", count: nftCounts.gold_nft || 0 },
+      { key: "ring_nft", icon: "💍", count: nftCounts.ring_nft || 0 },
+      { key: "blob_nft", icon: "🟣", count: nftCounts.blob_nft || 0 },
+    ];
+
+    // Filter entries that have count > 0
+    const validEntries = nftEntries.filter((entry) => entry.count > 0);
+
+    // If no valid entries, show dash
+    if (validEntries.length === 0) {
+      return <span className="text-slate-400">-</span>;
+    }
+
+    // Show the NFT counts
+    return (
+      <div className="flex items-center justify-center gap-2 text-sm">
+        {validEntries.map((entry, index) => (
+          <span key={entry.key} className="flex items-center gap-1">
+            <span className="text-base">{entry.icon}</span>
+            <span className="font-medium">x{entry.count}</span>
+            {index < validEntries.length - 1 && (
+              <span className="text-slate-400 mx-1">|</span>
+            )}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
   // Get the column index to determine arrow position (left/right)
   const getColumnIndex = (key: keyof Trader): number => {
     const columns: (keyof Trader)[] = [
@@ -68,6 +110,7 @@ export default function TradingBoard({
       "tradingScore",
       "buyVolume",
       "sellVolume",
+      "nftCounts",
       "currentBalance",
     ];
     return columns.indexOf(key);
@@ -84,7 +127,7 @@ export default function TradingBoard({
     }
 
     const columnIndex = getColumnIndex(key);
-    const totalColumns = 6; // Total number of columns
+    const totalColumns = 7; // Total number of columns
     const isLeftHalf = columnIndex < totalColumns / 2;
 
     // Different positioning and classes based on which half of the table we're in
@@ -112,7 +155,7 @@ export default function TradingBoard({
   // Get padding based on column position
   const getHeaderPadding = (key: keyof Trader) => {
     const columnIndex = getColumnIndex(key);
-    const totalColumns = 6;
+    const totalColumns = 7;
     const isLeftHalf = columnIndex < totalColumns / 2;
 
     // Apply padding to make space for the arrow
@@ -203,6 +246,21 @@ export default function TradingBoard({
                   </div>
                 </th>
                 <th
+                  className="py-4 px-4 font-medium cursor-pointer text-center select-none"
+                  onClick={() => requestSort("nftCounts")}
+                  onMouseEnter={() => setHoveredColumn("nftCounts")}
+                  onMouseLeave={() => setHoveredColumn(null)}
+                >
+                  <div
+                    className={`relative inline-flex items-center justify-center ${getHeaderPadding(
+                      "nftCounts"
+                    )}`}
+                  >
+                    Blub Reserve
+                    {getSortDirectionIndicator("nftCounts")}
+                  </div>
+                </th>
+                <th
                   className="py-4 px-4 font-medium cursor-pointer text-right select-none"
                   onClick={() => requestSort("currentBalance")}
                   onMouseEnter={() => setHoveredColumn("currentBalance")}
@@ -267,6 +325,9 @@ export default function TradingBoard({
                   </td>
                   <td className="py-3 px-4 text-red-500 text-center font-bold">
                     {formatNumber(trader.sellVolume)}
+                  </td>
+                  <td className="py-3 px-4 text-center">
+                    {renderNftCounts(trader.nftCounts)}
                   </td>
                   <td className="py-3 px-4 text-slate-700 text-right font-bold dark:text-slate-300">
                     {formatNumber(trader.currentBalance)}

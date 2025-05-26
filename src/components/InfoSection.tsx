@@ -67,7 +67,7 @@ export default function InfoSection() {
               </p>
               <div className="ml-4 space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">💍</span>
+                  <span className="text-2xl">💍/🟡</span>
                   <span>
                     A Ring or Gold NFT awards{" "}
                     <span className="font-semibold">20,000 points</span>

@@ -13,6 +13,11 @@ interface TradingVolumeItem {
   presale_type: string[];
   wallet_addresses: string[];
   rank: number;
+  nft_counts?: {
+    gold_nft: number;
+    ring_nft: number;
+    blob_nft: number;
+  };
 }
 
 interface TradingVolumeResponse {

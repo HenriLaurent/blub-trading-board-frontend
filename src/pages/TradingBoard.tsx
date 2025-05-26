@@ -42,6 +42,7 @@ export default function TradingBoardPage() {
       buyVolume: parseFloat(formatTokenAmount(volume.volume_in)),
       sellVolume: parseFloat(formatTokenAmount(volume.volume_out)),
       currentBalance: parseFloat(formatTokenAmount(volume.balance)),
+      nftCounts: volume.nft_counts,
     }));
   }, [tradingVolumes]);
 
@@ -67,6 +68,7 @@ export default function TradingBoardPage() {
       buyVolume: "volume_in",
       sellVolume: "volume_out",
       currentBalance: "balance",
+      nftCounts: "nft_counts",
     };
 
     const apiField = fieldMapping[key];
@@ -86,6 +88,7 @@ export default function TradingBoardPage() {
       volume_in: "buyVolume",
       volume_out: "sellVolume",
       balance: "currentBalance",
+      nft_counts: "nftCounts",
     };
 
     const traderKey =
