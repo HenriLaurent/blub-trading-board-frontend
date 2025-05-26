@@ -73,9 +73,21 @@ export default function TradingBoard({
     }
 
     const nftEntries = [
-      { key: "gold_nft", icon: "🟡", count: nftCounts.gold_nft || 0 },
-      { key: "ring_nft", icon: "💍", count: nftCounts.ring_nft || 0 },
-      { key: "blob_nft", icon: "🟣", count: nftCounts.blob_nft || 0 },
+      {
+        key: "gold_nft",
+        icon: "/blub-coin.png",
+        count: nftCounts.gold_nft || 0,
+      },
+      {
+        key: "ring_nft",
+        icon: "/blub-ring.png",
+        count: nftCounts.ring_nft || 0,
+      },
+      {
+        key: "blob_nft",
+        icon: "/blub-goo.png",
+        count: nftCounts.blob_nft || 0,
+      },
     ];
 
     // Filter entries that have count > 0
@@ -91,7 +103,11 @@ export default function TradingBoard({
       <div className="flex items-center justify-center gap-2 text-sm">
         {validEntries.map((entry, index) => (
           <span key={entry.key} className="flex items-center gap-1">
-            <span className="text-base">{entry.icon}</span>
+            <img
+              src={entry.icon}
+              alt={entry.key}
+              className="w-5 h-5 object-contain"
+            />
             <span className="font-medium text-slate-800 dark:text-slate-300">
               x{entry.count}
             </span>

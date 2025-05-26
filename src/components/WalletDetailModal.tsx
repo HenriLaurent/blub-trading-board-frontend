@@ -178,19 +178,37 @@ export default function WalletDetailModal({
             </div>
             <div className="grid grid-cols-3 gap-2">
               <div className="text-center p-3 bg-gradient-to-br from-yellow-400/10 to-yellow-600/10 rounded-xl border border-yellow-400/20">
-                <p className="text-yellow-600 text-xs font-semibold">Gold</p>
+                <div className="flex justify-center mb-1">
+                  <img
+                    src="/blub-coin.png"
+                    alt="gold nft"
+                    className="w-6 h-6 object-contain"
+                  />
+                </div>
                 <p className="text-yellow-700 font-bold text-lg">
                   {totalNfts.gold_nft}
                 </p>
               </div>
               <div className="text-center p-3 bg-gradient-to-br from-blue-400/10 to-blue-600/10 rounded-xl border border-purple-400/20">
-                <p className="text-blue-600 text-xs font-semibold">Ring</p>
+                <div className="flex justify-center mb-1">
+                  <img
+                    src="/blub-ring.png"
+                    alt="ring nft"
+                    className="w-6 h-6 object-contain"
+                  />
+                </div>
                 <p className="text-blue-700 font-bold text-lg">
                   {totalNfts.ring_nft}
                 </p>
               </div>
               <div className="text-center p-3 bg-gradient-to-br from-purple-400/10 to-purple-600/10 rounded-xl border border-blue-400/20">
-                <p className="text-purple-600 text-xs font-semibold">Blob</p>
+                <div className="flex justify-center mb-1">
+                  <img
+                    src="/blub-goo.png"
+                    alt="blob nft"
+                    className="w-6 h-6 object-contain"
+                  />
+                </div>
                 <p className="text-purple-700 font-bold text-lg">
                   {totalNfts.blob_nft}
                 </p>

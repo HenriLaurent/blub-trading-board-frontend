@@ -67,14 +67,32 @@ export default function InfoSection() {
               </p>
               <div className="ml-4 space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">💍/🟡</span>
+                  <div className="flex items-center gap-1">
+                    <img
+                      src="/blub-ring.png"
+                      alt="ring nft"
+                      className="w-6 h-6 object-contain"
+                    />
+                    <span className="text-slate-600 dark:text-slate-400">
+                      /
+                    </span>
+                    <img
+                      src="/blub-coin.png"
+                      alt="gold nft"
+                      className="w-6 h-6 object-contain"
+                    />
+                  </div>
                   <span>
                     A Ring or Gold NFT awards{" "}
                     <span className="font-semibold">20,000 points</span>
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">🟣</span>
+                  <img
+                    src="/blub-goo.png"
+                    alt="blob nft"
+                    className="w-6 h-6 object-contain"
+                  />
                   <span>
                     A Blob NFT awards{" "}
                     <span className="font-semibold">3,000 points</span>
