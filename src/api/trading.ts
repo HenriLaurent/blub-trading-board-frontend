@@ -116,7 +116,15 @@ export const useWalletTradingVolumes = (walletAddress: string | null) => {
 
       try {
         const response = await fetch(
-          `${API_URL}/api/trading-volumes/${walletAddress}`
+          `${API_URL}/api/trading-volumes/${walletAddress}`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            mode: "cors",
+          }
         );
 
         console.log(
