@@ -24,7 +24,7 @@ export default function InfoSection() {
 
       <button
         onClick={() => setIsVisible(false)}
-        className="absolute top-4 right-4 p-1 rounded-lg hover:bg-white/20 dark:hover:bg-black/20 transition-colors"
+        className="absolute top-4 right-4 p-1 rounded-lg hover:bg-white/20 dark:hover:bg-black/20 transition-colors z-10"
       >
         <XMarkIcon className="h-5 w-5 text-slate-600 dark:text-slate-400" />
       </button>
